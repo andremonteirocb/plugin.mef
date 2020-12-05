@@ -1,0 +1,18 @@
+﻿
+@using Phidelis.Core.MEF;
+
+<ul>
+    <li><a href="~/Home" title="Sala de Aula"><i class="fa fa-envelope"></i> <b>.:: Plugins</b></a></li>
+    @if (PluginManager.Instance().Menus.Count() > 0)
+    {
+        foreach (var menu in PluginManager.Instance().Menus.Select(p => p.Value).OrderBy(a => a.Text))
+        {
+            if (menu.CanShow())
+            {
+                <li>
+                    <a href="@Url.Content(menu.createLinkRelativeUrl())" title="@menu.Description"><i class="@Url.Content(menu.IconRelativeUrl)"></i> @menu.Text</a>
+                </li>
+            }
+        }
+    }
+</ul>
